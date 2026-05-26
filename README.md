@@ -7,3 +7,5 @@ movement
 enemy
 # ![](image/3.gif)
 door open + typing text code is from a tutorial
+# ![](image/4.gif)
+simonsays

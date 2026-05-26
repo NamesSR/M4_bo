@@ -14,6 +14,7 @@ public class text : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.L))
         {
+            _textBox.text = "";
             _textBox.text = "the nachtkrapp is a german myth parrents tell their children that if they dont sleep at night that the nachtkrapp will come and if it see them awake it will take them to its nest and rip off their arms and eat their heart  ";
 
         }
