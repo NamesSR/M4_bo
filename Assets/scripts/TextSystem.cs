@@ -17,7 +17,7 @@ public class TextSystem : MonoBehaviour
     private WaitForSeconds _simpleDelay;
     private WaitForSeconds _interpunctuationDelay;
 
-    [Header("Typewriter Settings")]
+    
     [SerializeField] private float charactersPerSecond = 20;
     [SerializeField] private float interpunctuationDelay = 0.5f;
 
@@ -26,7 +26,7 @@ public class TextSystem : MonoBehaviour
     public bool CurrentlySkipping { get; private set; }
     private WaitForSeconds _skipDelay;
 
-    [Header("Skip options")]
+    
     [SerializeField] private bool quickSkip;
     [SerializeField][Min(1)] private int skipSpeedup = 5;
 
@@ -41,6 +41,8 @@ public class TextSystem : MonoBehaviour
     private void Awake()
     {
         _textBox = GetComponent<TMP_Text>();
+        _textBox.text = " ";
+
 
         _simpleDelay = new WaitForSeconds(1 / charactersPerSecond);
         _interpunctuationDelay = new WaitForSeconds(interpunctuationDelay);
@@ -75,10 +77,11 @@ public class TextSystem : MonoBehaviour
     {
         if (!_readyForNewText)
         {
-           // Debug.Log("Not ready yet");
+            Debug.Log("Not ready yet");
             return;
         }
 
+        Debug.Log(" ready yet");
         _readyForNewText = false;
 
         if (_typewriterCoroutine != null)
