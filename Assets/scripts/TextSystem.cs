@@ -42,7 +42,7 @@ public class TextSystem : MonoBehaviour
     {
         _textBox = GetComponent<TMP_Text>();
         _textBox.text = " ";
-
+        text.e += maxvischar;
 
         _simpleDelay = new WaitForSeconds(1 / charactersPerSecond);
         _interpunctuationDelay = new WaitForSeconds(interpunctuationDelay);
@@ -71,7 +71,11 @@ public class TextSystem : MonoBehaviour
         }
     }
 
-   
+   void maxvischar()
+    {
+        _textBox.maxVisibleCharacters = 0;
+        _currentVisibleCharacterIndex = 0;
+    }
 
     private void PrepareForNewText(Object obj)
     {

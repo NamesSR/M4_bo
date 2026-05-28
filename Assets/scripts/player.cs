@@ -5,20 +5,29 @@ public class player : MonoBehaviour
 {
     public CharacterController controller;
     public float speed = 12f;
+    float rspeed;
     public float gravity = -9.81f;
     public float smoothfactor = 20f;
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
     public float jumpFores = 2f;
-    
+    public text text;
    public bool haskey = false;
     Vector3 dir;
     float height = 0.5f;
+    dialogTriggerSettings s;
+    public bool indialog = false;
+    float x;
+    float z;
 
    [SerializeField] Vector3 velocity;
     bool isGrounded;
-    // Update is called once per frame
+    private void Awake()
+    {
+        text.dialogEnd += textend;
+        rspeed = speed;
+    }
     void Update()
     {
 
@@ -44,12 +53,15 @@ public class player : MonoBehaviour
             }
         }
 
+       
+         x = Input.GetAxis("Horizontal");
+         z = Input.GetAxis("Vertical");
 
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
+       
+
         Vector3 move = new Vector3(x, 0f, z);//.normalized;
-         velocity.x = Mathf.Lerp(velocity.x, move.x * speed, Time.deltaTime * smoothfactor);
-         velocity.z = Mathf.Lerp(velocity.z, move.z * speed, Time.deltaTime * smoothfactor);
+         velocity.x = Mathf.Lerp(velocity.x, move.x * rspeed, Time.deltaTime * smoothfactor);
+         velocity.z = Mathf.Lerp(velocity.z, move.z * rspeed, Time.deltaTime * smoothfactor);
         
 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
@@ -65,16 +77,63 @@ public class player : MonoBehaviour
         
 
     }
+    void textend()
+    {
+        s = null;
+        rspeed = speed;
+
+
+    }
     private void OnTriggerStay(Collider col)
     {
         if(col.tag == "key")
         {
             haskey = true;
             Destroy(col.gameObject);
+
         }
-       
+        if (col.tag == "dialog")
+        {
+            if (s == null)
+            {
+                s = col.GetComponent<dialogTriggerSettings>();
+            }
+            if (Input.GetKey(KeyCode.E))
+            {
+                if (s.dialog)
+                {
+                    rspeed = 0;
+                    text.pushText(s.startIndex, s.maxIndex);
+
+                }
+                else
+                {
+                    GameManager.Instance.simonsays();
+                }
+
+            }
+        }
+
+
+
 
     }
-    
-  
+    //private void OnTriggerEnter(Collider col)
+    //{
+    //    if (col.tag == "dialog")
+    //    {
+
+    //        if (s == null)
+    //        {
+    //            s = col.GetComponent<dialogTriggerSettings>();
+    //        }
+    //        if (Input.GetKey(KeyCode.E))
+    //        {
+    //            text.pushText(s.startIndex, s.maxIndex);
+    //        }
+    //    }
+    //}
+
+
+
 }

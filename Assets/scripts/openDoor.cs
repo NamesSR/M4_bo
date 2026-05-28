@@ -21,7 +21,7 @@ public class openDoor : MonoBehaviour
         if (col.gameObject.CompareTag("Player"))
         {
             Debug.Log("collision");
-            if (Input.GetKeyDown(KeyCode.E) && player.haskey)
+            if (Input.GetKey(KeyCode.E) && player.haskey)
             {
                 Debug.Log("door Opend");
                 var s = door.GetComponent<BoxCollider>();
