@@ -11,6 +11,8 @@ TagManager:
   - KeyDile1
   - KeyDile2
   - KeyDile3
+  - Mirror
+  - Burnable
   layers:
   - Default
   - TransparentFX
