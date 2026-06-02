@@ -8,6 +8,9 @@ TagManager:
   - door
   - dialog
   - keyPuzzel
+  - KeyDile1
+  - KeyDile2
+  - KeyDile3
   layers:
   - Default
   - TransparentFX

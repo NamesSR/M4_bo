@@ -12,12 +12,15 @@ public class OnEvenclick2 : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     private InputActionMap map;
 
     private InputAction hold;
-    public float b = 5;
+   
     public bool enterGameObject;
     [SerializeField] Vector3 dir;
     public float speed = 10f;
     public float speed2 = 0.3f;
-    public bool puzzlecomplyt = false;
+
+    int currentdile = 1;
+
+
     private void Awake()
     {
         map = input.FindActionMap(Action);
@@ -33,13 +36,14 @@ public class OnEvenclick2 : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     }
     private void Update()
     {
-
+        currentdile = keypuzzel.instance.currentdilel;
         if (enterGameObject == true)
         {
 
             if (hold.IsPressed())
             {
-                if (this.gameObject.tag == "keyPuzzel")
+                Debug.Log(gameObject.tag);
+                if (this.gameObject.tag == "KeyDile1" || this.gameObject.tag == "KeyDile2" || this.gameObject.tag == "KeyDile3")
                 {
 
                     Vector3 mouspos = Input.mousePosition;
@@ -51,34 +55,62 @@ public class OnEvenclick2 : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
                     dir = (worldpos - transform.position).normalized;
                     //float singleStep = speed * Time.deltaTime;
-                  
-                   
+
+
 
                     Debug.Log(Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
                     float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
 
-                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.AngleAxis(angle,Vector3.forward), speed2 * Time.deltaTime * speed);
+                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.AngleAxis(angle, Vector3.forward), speed2 * Time.deltaTime * speed);
 
 
                 }
 
             }
         }
-        float zRot= transform.eulerAngles.z;
+        float zRot = transform.eulerAngles.z;
         if (Mathf.Clamp(zRot, 0f, 5f) == zRot)
         {
             Debug.Log("asdasas");
-            if (puzzlecomplyt == false)
+            switch (this.gameObject.tag)
             {
-                puzzlecomplyt = true;
-
+                case "KeyDile1":
+                    keypuzzel.instance.dile1 = true;
+                    break;
+                case "KeyDile2":
+                    keypuzzel.instance.dile2 = true;
+                    break;
+                case "KeyDile3":
+                    keypuzzel.instance.dile3 = true;
+                    break;
             }
+
+            // dile1 = true;//  puzzlecomplyt = true;
+
+
 
 
 
 
         }
+        else
+        {
+            switch (this.gameObject.tag)
+            {
+                case "KeyDile1":
+                    keypuzzel.instance.dile1 = false;
+                    break;
+                case "KeyDile2":
+                    keypuzzel.instance.dile2 = false;
+                    break;
+                case "KeyDile3":
+                    keypuzzel.instance.dile3 = false;
+                    break;
+            }
+        }
+        
+
     }
     public void OnPointerDown(PointerEventData eventData)
     {

@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public GameObject button3;
     public GameState currentState = GameState.Playing;
     public GameObject book;
+    public GameObject keypuzzel;
     private void Awake()
     {
         Instance = this;
@@ -85,6 +86,10 @@ public class GameManager : MonoBehaviour
                 currentState = GameState.Playing;
                 SetState(GameState.Playing);
             }
+
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha0)) {
+            keypuzzel.SetActive(true);
 
         }
     }
