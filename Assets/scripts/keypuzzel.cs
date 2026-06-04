@@ -5,6 +5,9 @@ public class keypuzzel : MonoBehaviour
     public SphereCollider sc1;
     public SphereCollider sc2;
     public SphereCollider sc3;
+    public keyDIle2 kd1;
+    public keyDIle2 kd2;
+    public keyDIle2 kd3;
     public int currentdilel = 1;
     public static keypuzzel instance;
     public bool dile1 = false;
@@ -25,7 +28,7 @@ public class keypuzzel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.Y))
         {
             if (currentdilel < 3)
             {
@@ -34,7 +37,7 @@ public class keypuzzel : MonoBehaviour
 
             }
         }
-        if (Input.GetKeyDown(KeyCode.G))
+        if (Input.GetKeyDown(KeyCode.H))
         {
             if (currentdilel > 1)
             {
@@ -57,6 +60,11 @@ public class keypuzzel : MonoBehaviour
         sc2.enabled = false;
         sc1.enabled = false;
 
+
+        kd1.active = false;
+        kd2.active = false;
+        kd3.active = false;
+
         switch (currentdilel)
         {
             case 1:
@@ -64,27 +72,27 @@ public class keypuzzel : MonoBehaviour
                 sc2.enabled = false;
                 sc3.enabled = false;
 
-                //evc1.enabled = true;
-                //evc2.enabled = false;
-                //evc3.enabled = false;
+                kd1.active = true;
+                kd2.active = false;
+                kd3.active = false;
                 break;
             case 2:
                 sc1.enabled = false;
                 sc2.enabled = true;
                 sc3.enabled = false;
 
-                //evc1.enabled = false;
-                //evc2.enabled = true;
-                //evc3.enabled = false;
+                kd1.active = false;
+                kd2.active = true;
+                kd3.active = false;
                 break;
             case 3:
                 sc1.enabled = false;
                 sc2.enabled = false;
                 sc3.enabled = true;
 
-                //evc1.enabled = false;
-                //evc2.enabled = false;
-                //evc3.enabled = true;
+                kd1.active = false;
+                kd2.active = false;
+                kd3.active = true;
                 break;
         }
     }

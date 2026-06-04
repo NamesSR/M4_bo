@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem.LowLevel;
 
@@ -21,6 +22,10 @@ public class GameManager : MonoBehaviour
     public GameState currentState = GameState.Playing;
     public GameObject book;
     public GameObject keypuzzel;
+    public GameObject lightPuzzle;
+    public GameObject collerConectPuzzle;
+
+    public List<GameObject> wobbs = new List<GameObject>();
     private void Awake()
     {
         Instance = this;
@@ -91,6 +96,16 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha0)) {
             keypuzzel.SetActive(true);
 
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            
+              lightPuzzle.SetActive(true);
+            
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            collerConectPuzzle.SetActive(true);
         }
     }
     public void simonsays()

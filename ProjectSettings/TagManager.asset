@@ -13,6 +13,7 @@ TagManager:
   - KeyDile3
   - Mirror
   - Burnable
+  - orb
   layers:
   - Default
   - TransparentFX

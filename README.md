@@ -8,4 +8,10 @@ enemy
 # ![](image/3.gif)
 door open + typing text code is from a tutorial
 # ![](image/4.gif)
+simon says
+# ![](image/5.gif)
 dile key puzzel
+# ![](image/6.gif)
+light puzzle
+# ![](image/7.gif)
+coler Conect puzzle

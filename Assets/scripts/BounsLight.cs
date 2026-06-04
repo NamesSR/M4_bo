@@ -8,7 +8,7 @@ public class BounsLight : MonoBehaviour
     Ray ray;
     RaycastHit hit;
     Vector3 dir;
-    Vector3 oldDir;
+  
    
     void Awake()
     {
