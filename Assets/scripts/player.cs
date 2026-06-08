@@ -13,15 +13,15 @@ public class player : MonoBehaviour
     public LayerMask groundMask;
     public float jumpFores = 2f;
     public text text;
-   public bool haskey = false;
+    public bool haskey = false;
     Vector3 dir;
     float height = 0.5f;
-    dialogTriggerSettings s;
+    TrigerSettings s;
     public bool indialog = false;
     float x;
     float z;
 
-   [SerializeField] Vector3 velocity;
+    [SerializeField] Vector3 velocity;
     bool isGrounded;
     private void Awake()
     {
@@ -31,7 +31,7 @@ public class player : MonoBehaviour
     void Update()
     {
 
-     
+
 
 
     }
@@ -53,16 +53,16 @@ public class player : MonoBehaviour
             }
         }
 
-       
-         x = Input.GetAxis("Horizontal");
-         z = Input.GetAxis("Vertical");
 
-       
+        x = Input.GetAxis("Horizontal");
+        z = Input.GetAxis("Vertical");
+
+
 
         Vector3 move = new Vector3(x, 0f, z);//.normalized;
-         velocity.x = Mathf.Lerp(velocity.x, move.x * rspeed, Time.deltaTime * smoothfactor);
-         velocity.z = Mathf.Lerp(velocity.z, move.z * rspeed, Time.deltaTime * smoothfactor);
-        
+        velocity.x = Mathf.Lerp(velocity.x, move.x * rspeed, Time.deltaTime * smoothfactor);
+        velocity.z = Mathf.Lerp(velocity.z, move.z * rspeed, Time.deltaTime * smoothfactor);
+
 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
@@ -70,11 +70,11 @@ public class player : MonoBehaviour
             Debug.Log("jump");
         }
         velocity.y += gravity * Time.deltaTime;
-        
 
-         controller.Move(velocity * Time.deltaTime);
 
-        
+        controller.Move(velocity * Time.deltaTime);
+
+
 
     }
     void textend()
@@ -86,7 +86,7 @@ public class player : MonoBehaviour
     }
     private void OnTriggerStay(Collider col)
     {
-        if(col.tag == "key")
+        if (col.tag == "key")
         {
             haskey = true;
             Destroy(col.gameObject);
@@ -96,19 +96,35 @@ public class player : MonoBehaviour
         {
             if (s == null)
             {
-                s = col.GetComponent<dialogTriggerSettings>();
+                s = col.GetComponent<TrigerSettings>();
             }
             if (Input.GetKey(KeyCode.E))
             {
                 if (s.dialog)
                 {
                     rspeed = 0;
-                    text.pushText(s.startIndex, s.maxIndex);
-
+                    text.pushText(s.dialogBox);
+                    
                 }
-                else
+                else if (s.simonSays)
                 {
                     GameManager.Instance.simonsays();
+                    s = null;
+                }
+                else if (s.mirrorPuzzle)
+                {
+                    GameManager.Instance.MirrorPuzzle();
+                    s = null;
+                }
+                else if (s.collerConect)
+                {
+                    GameManager.Instance.collerConectPuzzleFn();
+                    s = null;
+                }
+                else if (s.keyDilePuzzle)
+                {
+                    GameManager.Instance.KeyDilePuzzle();
+                    s = null;
                 }
 
             }

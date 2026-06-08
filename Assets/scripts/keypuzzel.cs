@@ -51,6 +51,7 @@ public class keypuzzel : MonoBehaviour
 
             puzzlecomplyt = true;
             gameObject.SetActive(false);
+            GameManager.Instance.puzzlecompleted();
         }
     }
     void currentdileUpdate()

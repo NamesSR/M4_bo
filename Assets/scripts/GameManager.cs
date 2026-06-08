@@ -6,6 +6,7 @@ public enum GameState
 {
     Menu,
     Playing,
+    puzzle,
     Paused,
     GameOver,
     book
@@ -16,14 +17,16 @@ public class GameManager : MonoBehaviour
     public GameObject enemytest;
     public static GameManager Instance;
     public int combo = 0;
-    public GameObject button1;
-    public GameObject button2;
-    public GameObject button3;
+    public GameObject simonSay;
+  
     public GameState currentState = GameState.Playing;
     public GameObject book;
     public GameObject keypuzzel;
-    public GameObject lightPuzzle;
+    public GameObject mirrorPuzzle;
     public GameObject collerConectPuzzle;
+    public GameObject maincamera;
+    public GameObject puzzleCamera;
+  
 
     public List<GameObject> wobbs = new List<GameObject>();
     private void Awake()
@@ -43,24 +46,39 @@ public class GameManager : MonoBehaviour
         {
             case GameState.Menu:
                 Time.timeScale = 1;
+                maincamera.SetActive(true);
+                puzzleCamera.SetActive(false);
                 book.SetActive(false);
                 break;
             case GameState.Playing:
                 Time.timeScale = 1;
+                maincamera.SetActive(true);
+                puzzleCamera.SetActive(false);
                 book.SetActive(false);
                 break;
             case GameState.Paused:
                 Time.timeScale = 0;
+                maincamera.SetActive(true);
+                puzzleCamera.SetActive(false);
                 book.SetActive(false);
                 break;
             case GameState.GameOver:
                 Time.timeScale = 0;
+                maincamera.SetActive(true);
+                puzzleCamera.SetActive(false);
                 book.SetActive(false);
                 break;
             case GameState.book:
+                maincamera.SetActive(true);
+                puzzleCamera.SetActive(false);
                 book.SetActive(true);
                 Time.timeScale = 0;
-
+                break;
+            case GameState.puzzle:
+                Time.timeScale = 1;
+                maincamera.SetActive(false);
+                puzzleCamera.SetActive(true);
+                book.SetActive(false);
                 break;
         }
 
@@ -74,10 +92,7 @@ public class GameManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.T))
         {
-            button1.SetActive(true);
-            button2.SetActive(true);
-            button3.SetActive(true);
-            combo = 0;
+            simonsays();
         }
         if (Input.GetKeyDown(KeyCode.I))
         {
@@ -93,15 +108,17 @@ public class GameManager : MonoBehaviour
             }
 
         }
-        if (Input.GetKeyDown(KeyCode.Alpha0)) {
-            keypuzzel.SetActive(true);
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
 
+            KeyDilePuzzle();
         }
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
-            
-              lightPuzzle.SetActive(true);
-            
+
+            mirrorPuzzle.SetActive(true);
+            MirrorPuzzle();
+
         }
         if (Input.GetKeyDown(KeyCode.Alpha8))
         {
@@ -110,9 +127,36 @@ public class GameManager : MonoBehaviour
     }
     public void simonsays()
     {
-        button1.SetActive(true);
-        button2.SetActive(true);
-        button3.SetActive(true);
+        simonSay.SetActive(true);
         combo = 0;
+       
+    }
+    public void KeyDilePuzzle()
+    {
+        keypuzzel.SetActive(true);
+        currentState = GameState.puzzle;
+        SetState(GameState.puzzle);
+    }
+    public void MirrorPuzzle()
+    {
+        foreach (Transform child in mirrorPuzzle.transform)
+        {
+            child.gameObject.SetActive(true);
+        }
+        
+    }
+    public void collerConectPuzzleFn()
+    {
+        foreach (Transform child in collerConectPuzzle.transform)
+        {
+            child.gameObject.SetActive(true);
+        }
+        currentState = GameState.puzzle;
+        SetState(GameState.puzzle);
+    }
+   public void puzzlecompleted()
+    {
+        currentState = GameState.Playing;
+        SetState(GameState.Playing);
     }
 }

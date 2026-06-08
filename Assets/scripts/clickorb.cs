@@ -9,6 +9,8 @@ public class clickorb : MonoBehaviour
     [SerializeField] private InputActionAsset input;
     [SerializeField] private string Action = "puzzle";
     orb orb;
+    public int orbamount = 4;
+    int orbdestoryed = 0;
     public int currentid = 0;
     int lastid;
 
@@ -32,6 +34,11 @@ public class clickorb : MonoBehaviour
 
     private void Update()
     {
+        if(orbamount >= orbdestoryed)
+        {
+            GameManager.Instance.puzzlecompleted();
+            this.gameObject.SetActive(false);
+        }
         Mousepos = Input.mousePosition;
 
         Ray mousRay = Camera.main.ScreenPointToRay(Mousepos);
@@ -76,6 +83,7 @@ public class clickorb : MonoBehaviour
                 foreach (GameObject wobb in GameManager.Instance.wobbs)
                 {
                     wobb.SetActive(false);
+                    orbdestoryed++;
                 }
                 GameManager.Instance.wobbs.Clear();
                 currentid = 0;

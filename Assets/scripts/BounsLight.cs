@@ -3,7 +3,7 @@ using UnityEngine;
 public class BounsLight : MonoBehaviour
 {
     public float maxLength = 20f;
-    public int reflections = 2;
+    public int reflections = 1;
     LineRenderer lr;
     Ray ray;
     RaycastHit hit;

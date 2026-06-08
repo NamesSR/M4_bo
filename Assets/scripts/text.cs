@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -9,12 +10,7 @@ public class text : MonoBehaviour
     public int textIndex = 0;
     public bool sd = true;
     public GameObject textTriger;
-    string[] txt = new string[] { 
-        "ffs fskjsjgij ij i eio ei ee hoehhho iheed", 
-        "hdfhshsjhdfs hjb  j jgvgf ffff  drtdxbv hg",
-    "fghyujikohg gtyhujikojhgfwhyghuji,",
-        "hjklkjhhjklop;okiju hujikolplokijuh jklookj",
-    "ghjklkjh bhnjmkloplokijuhy bhjkiolkijuh"};
+   
     public static event Action dialogEnd;
     public static event Action e;
     bool er = true;
@@ -38,17 +34,17 @@ public class text : MonoBehaviour
         }
     }
 
-    public void pushText(int startIndex, int maxindex)
+    public void pushText(string[] dialog)
     {
         if (sd)
         {
-            textIndex = startIndex;
+           textIndex = 0;
             textfield.SetActive(true);
             //_textBox.text = " ";
             sd = false;
 
         }
-        if (textIndex <= maxindex)
+        if (textIndex <= dialog.Length - 1)
         {
             if (er)
             {
@@ -56,7 +52,7 @@ public class text : MonoBehaviour
                 er = false;
             }
            // _textBox.text = " ";
-            _textBox.text = txt[textIndex];
+            _textBox.text = dialog[textIndex];
 
         }
         else
