@@ -94,17 +94,18 @@ public class player : MonoBehaviour
         }
         if (col.tag == "dialog")
         {
-            if (s == null)
-            {
-                s = col.GetComponent<TrigerSettings>();
-            }
             if (Input.GetKey(KeyCode.E))
             {
+                if (s == null)
+                {
+                    s = col.GetComponent<TrigerSettings>();
+                }
+
                 if (s.dialog)
                 {
                     rspeed = 0;
                     text.pushText(s.dialogBox);
-                    
+
                 }
                 else if (s.simonSays)
                 {
