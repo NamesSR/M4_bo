@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem.LowLevel;
+using static UnityEditor.PlayerSettings;
 
 public enum GameState
 {
@@ -18,7 +19,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public int combo = 0;
     public GameObject simonSay;
-  
+    public GameObject mirror1;
+    public GameObject mirror2;
     public GameState currentState = GameState.Playing;
     public GameObject book;
     public GameObject keypuzzel;
@@ -26,7 +28,10 @@ public class GameManager : MonoBehaviour
     public GameObject collerConectPuzzle;
     public GameObject maincamera;
     public GameObject puzzleCamera;
-  
+    public int orbdestoryed = 0;
+    public GameObject burnebleprefab;
+    Vector3 pos;
+    bool spawned = false;
 
     public List<GameObject> wobbs = new List<GameObject>();
     private void Awake()
@@ -129,7 +134,7 @@ public class GameManager : MonoBehaviour
     {
         simonSay.SetActive(true);
         combo = 0;
-       
+
     }
     public void KeyDilePuzzle()
     {
@@ -139,14 +144,26 @@ public class GameManager : MonoBehaviour
     }
     public void MirrorPuzzle()
     {
+        mirror1.SetActive(true);
+        mirror2.SetActive(true);
+        mirrorPuzzle.SetActive(true);
         foreach (Transform child in mirrorPuzzle.transform)
         {
             child.gameObject.SetActive(true);
         }
-        
+        if (spawned == false)
+        {
+            pos = new Vector3(2.11025f, 2.33918f, -12.38297f);
+            Instantiate(burnebleprefab, pos, transform.rotation);
+            spawned = true;
+        }
+
     }
     public void collerConectPuzzleFn()
     {
+        orbdestoryed = 0;
+        collerConectPuzzle.SetActive(true);
+
         foreach (Transform child in collerConectPuzzle.transform)
         {
             child.gameObject.SetActive(true);
@@ -154,9 +171,19 @@ public class GameManager : MonoBehaviour
         currentState = GameState.puzzle;
         SetState(GameState.puzzle);
     }
-   public void puzzlecompleted()
+    public void puzzlecompleted()
     {
+        Debug.Log("puzzle finished");
         currentState = GameState.Playing;
         SetState(GameState.Playing);
+        mirror1.SetActive(false);
+        mirror2.SetActive(false);
+    }
+    public void mirrorpuzzlecompleted()
+    {
+        mirrorPuzzle.SetActive(false);
+        mirror1.SetActive(false);
+        mirror2.SetActive(false);
+        spawned = false;
     }
 }

@@ -43,6 +43,7 @@ public class OnEvenclick2 : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     public void OnPointerUp(PointerEventData eventData)
     {
 
+
     }
     public void OnPointerClick(PointerEventData eventData)
     {

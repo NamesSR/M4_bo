@@ -70,7 +70,7 @@ public class keyDIle2 : MonoBehaviour
 
 
                         dir = (worldpos - transform.position).normalized;
-                        //float singleStep = speed * Time.deltaTime;
+                        //float singleStep = speed * Time.deltaTime; 
 
 
 
@@ -87,11 +87,12 @@ public class keyDIle2 : MonoBehaviour
             }
         }
         float zRot = transform.eulerAngles.z;
-        if (Mathf.Clamp(zRot, 0f, 5f) == zRot)
+        if (Mathf.Clamp(zRot, 5f, 15f) == zRot)
         {
             Debug.Log("asdasas");
             switch (this.gameObject.tag)
             {
+
                 case "KeyDile1":
                     keypuzzel.instance.dile1 = true;
                     break;

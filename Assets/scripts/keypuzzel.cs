@@ -18,6 +18,10 @@ public class keypuzzel : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        puzzlecomplyt = false;
+        dile1 = false;
+        dile2 = false;
+        dile3 = false;
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

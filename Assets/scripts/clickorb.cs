@@ -10,10 +10,10 @@ public class clickorb : MonoBehaviour
     [SerializeField] private string Action = "puzzle";
     orb orb;
     public int orbamount = 4;
-    int orbdestoryed = 0;
+   
     public int currentid = 0;
     int lastid;
-
+    public GameObject sd32r;
     private InputActionMap map;
 
     private InputAction hold;
@@ -21,23 +21,27 @@ public class clickorb : MonoBehaviour
     {
         map = input.FindActionMap(Action);
         hold = map.FindAction("holdclick");
+        
 
     }
     private void OnEnable()
     {
         map.Enable();
     }
+
     private void OnDisable()
     {
         map.Disable();
     }
 
+    
     private void Update()
     {
-        if(orbamount >= orbdestoryed)
+        if(orbamount <= GameManager.Instance.orbdestoryed)
         {
             GameManager.Instance.puzzlecompleted();
             this.gameObject.SetActive(false);
+            sd32r.SetActive(false);
         }
         Mousepos = Input.mousePosition;
 
@@ -83,7 +87,7 @@ public class clickorb : MonoBehaviour
                 foreach (GameObject wobb in GameManager.Instance.wobbs)
                 {
                     wobb.SetActive(false);
-                    orbdestoryed++;
+                    GameManager.Instance.orbdestoryed++;
                 }
                 GameManager.Instance.wobbs.Clear();
                 currentid = 0;

@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -14,14 +15,14 @@ public class player : MonoBehaviour
     public float jumpFores = 2f;
     public text text;
     public bool haskey = false;
+    
+    public bool indialog = false;
+    [SerializeField] Vector3 velocity;
     Vector3 dir;
     float height = 0.5f;
     TrigerSettings s;
-    public bool indialog = false;
     float x;
     float z;
-
-    [SerializeField] Vector3 velocity;
     bool isGrounded;
     private void Awake()
     {
@@ -31,7 +32,7 @@ public class player : MonoBehaviour
     void Update()
     {
 
-
+        
 
 
     }

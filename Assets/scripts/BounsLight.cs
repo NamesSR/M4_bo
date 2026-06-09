@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class BounsLight : MonoBehaviour
@@ -8,6 +9,7 @@ public class BounsLight : MonoBehaviour
     Ray ray;
     RaycastHit hit;
     Vector3 dir;
+    GameObject burneble;
   
    
     void Awake()
@@ -33,7 +35,7 @@ public class BounsLight : MonoBehaviour
                 {
                    
                     dir = Vector3.Reflect(ray.direction, hit.normal);
-                    ray = new Ray(hit.point + (dir * 0.01f), dir);
+                    ray = new Ray(hit.point + (dir * 0.05f), dir);
                     
 
                 }
@@ -41,11 +43,13 @@ public class BounsLight : MonoBehaviour
                 {
                     Debug.Log("burning");
                     Destroy(hit.collider.gameObject, 1f);
+                   StartCoroutine(sd34());
+                   
 
                 }
-                else
+                else if(hit.collider.CompareTag("floor"))
                 {
-
+                    break;
                 }
             }
             else
@@ -56,5 +60,11 @@ public class BounsLight : MonoBehaviour
 
         }
 
+    }
+    IEnumerator sd34()
+    {
+        yield return new WaitForSeconds(1f);
+       
+        GameManager.Instance.mirrorpuzzlecompleted();
     }
 }

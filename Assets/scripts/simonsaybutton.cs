@@ -6,10 +6,7 @@ public class simonsaybutton : MonoBehaviour
     public GameObject simonsaysGo;
    
 
-    void Update()
-    {
-    }
-
+    
 
     public void simonSays()
     {
