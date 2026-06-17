@@ -30,6 +30,14 @@ public class GameManager : MonoBehaviour
     public GameObject puzzleCamera;
     public int orbdestoryed = 0;
     public GameObject burnebleprefab;
+    public bool debugMode = false;
+    public bool first = false;
+    public bool checkon = false;
+    public bool meatingSpot12;
+    public bool item1 = false;
+    public GameObject checkongo;
+    public GameObject meatingSpot;
+
     Vector3 pos;
     bool spawned = false;
 
@@ -91,45 +99,66 @@ public class GameManager : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.J))
+        if (debugMode)
         {
-            enemytest.SetActive(true);
-        }
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            simonsays();
-        }
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            if (currentState == GameState.Playing)
+            if (Input.GetKeyDown(KeyCode.J))
             {
-                currentState = GameState.book;
-                SetState(GameState.book);
+                enemytest.SetActive(true);
             }
-            else if (currentState == GameState.book)
+            if (Input.GetKeyDown(KeyCode.T))
             {
-                currentState = GameState.Playing;
-                SetState(GameState.Playing);
+                simonsays();
             }
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                if (currentState == GameState.Playing)
+                {
+                    currentState = GameState.book;
+                    SetState(GameState.book);
+                }
+                else if (currentState == GameState.book)
+                {
+                    currentState = GameState.Playing;
+                    SetState(GameState.Playing);
+                }
 
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha0))
+            {
 
-            KeyDilePuzzle();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha9))
-        {
+                KeyDilePuzzle();
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha9))
+            {
 
-            mirrorPuzzle.SetActive(true);
-            MirrorPuzzle();
+                mirrorPuzzle.SetActive(true);
+                MirrorPuzzle();
 
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha8))
-        {
-            collerConectPuzzle.SetActive(true);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha8))
+            {
+                collerConectPuzzle.SetActive(true);
+            }
         }
     }
+    //public void show()
+    //{
+    //    if (first)
+    //    {
+    //        checkongo.SetActive(true);
+            
+    //    }
+        
+    //}
+    //public void show2()
+    //{
+    //    if (checkongo)
+    //    {
+    //        meatingSpot.SetActive(true);
+
+    //    }
+
+    //}
     public void simonsays()
     {
         simonSay.SetActive(true);

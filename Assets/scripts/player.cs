@@ -13,7 +13,7 @@ public class player : MonoBehaviour
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
     public float jumpFores = 2f;
-    public text text;
+     text text;
     public bool haskey = false;
     
     public bool indialog = false;
@@ -24,6 +24,7 @@ public class player : MonoBehaviour
     float x;
     float z;
     bool isGrounded;
+    public string[] flags = new string[] { };
     private void Awake()
     {
         text.dialogEnd += textend;
@@ -38,8 +39,9 @@ public class player : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-        if (isGrounded && velocity.y < 0)
+        
+        //isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        if (controller.isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
             if (Input.GetKeyDown(KeyCode.LeftControl))
@@ -65,7 +67,7 @@ public class player : MonoBehaviour
         velocity.z = Mathf.Lerp(velocity.z, move.z * rspeed, Time.deltaTime * smoothfactor);
 
 
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetKey(KeyCode.Space) && controller.isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpFores * -2f * gravity);
             Debug.Log("jump");
@@ -80,8 +82,21 @@ public class player : MonoBehaviour
     }
     void textend()
     {
+        //if (s.triggerId == "checkon")
+        //{
+            
+        //    GameManager.Instance.checkon = true;
+        //    GameManager.Instance.show2();
+        //}
+        //if (s.triggerId == "first" && GameManager.Instance.checkon == false)
+        //{
+        //    GameManager.Instance.first = true;
+        //    GameManager.Instance.show();
+        //}
+
         s = null;
         rspeed = speed;
+        text = null;
 
 
     }
@@ -104,6 +119,10 @@ public class player : MonoBehaviour
 
                 if (s.dialog)
                 {
+                    if(text == null)
+                    {
+                        text = col.GetComponent<text>();
+                    }
                     rspeed = 0;
                     text.pushText(s.dialogBox);
 
@@ -127,6 +146,10 @@ public class player : MonoBehaviour
                 {
                     GameManager.Instance.KeyDilePuzzle();
                     s = null;
+                }
+                else if(s.itemPuckUp)
+                {
+                    GameManager.Instance.item1 = true;
                 }
 
             }

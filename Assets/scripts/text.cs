@@ -9,7 +9,7 @@ public class text : MonoBehaviour
     public GameObject textfield;
     public int textIndex = 0;
     public bool sd = true;
-    public GameObject textTriger;
+   // public GameObject textTriger;
    
     public static event Action dialogEnd;
     public static event Action e;
@@ -59,7 +59,7 @@ public class text : MonoBehaviour
         {
             _textBox.text = " ";
             textfield.SetActive(false);
-            textTriger.SetActive(false);
+            gameObject.SetActive(false);
             dialogEnd.Invoke();
         }
 
