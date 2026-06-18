@@ -24,11 +24,12 @@ public class player : MonoBehaviour
     float x;
     float z;
     bool isGrounded;
-    public string[] flags = new string[] { };
+    
     private void Awake()
     {
         text.dialogEnd += textend;
         rspeed = speed;
+        
     }
     void Update()
     {
@@ -82,21 +83,12 @@ public class player : MonoBehaviour
     }
     void textend()
     {
-        //if (s.triggerId == "checkon")
-        //{
-            
-        //    GameManager.Instance.checkon = true;
-        //    GameManager.Instance.show2();
-        //}
-        //if (s.triggerId == "first" && GameManager.Instance.checkon == false)
-        //{
-        //    GameManager.Instance.first = true;
-        //    GameManager.Instance.show();
-        //}
-
+        
         s = null;
         rspeed = speed;
         text = null;
+        GameManager.Instance.flag++;
+        TriggerManager.instance.ssd(GameManager.Instance.flag);
 
 
     }
@@ -110,7 +102,7 @@ public class player : MonoBehaviour
         }
         if (col.tag == "dialog")
         {
-            if (Input.GetKey(KeyCode.E))
+            if (Input.GetKey(KeyCode.E) || Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Mouse1))
             {
                 if (s == null)
                 {
@@ -150,6 +142,12 @@ public class player : MonoBehaviour
                 else if(s.itemPuckUp)
                 {
                     GameManager.Instance.item1 = true;
+                    if (text == null)
+                    {
+                        text = col.GetComponent<text>();
+                    }
+                    rspeed = 0;
+                    text.pushText(s.dialogBox);
                 }
 
             }

@@ -35,8 +35,12 @@ public class GameManager : MonoBehaviour
     public bool checkon = false;
     public bool meatingSpot12;
     public bool item1 = false;
+    
     public GameObject checkongo;
     public GameObject meatingSpot;
+   
+    public GameObject game;
+    public int flag = 1;
 
     Vector3 pos;
     bool spawned = false;
@@ -45,6 +49,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        flag = 1;
     }
 
     void Start()
@@ -146,9 +151,9 @@ public class GameManager : MonoBehaviour
     //    if (first)
     //    {
     //        checkongo.SetActive(true);
-            
+
     //    }
-        
+
     //}
     //public void show2()
     //{
@@ -159,6 +164,13 @@ public class GameManager : MonoBehaviour
     //    }
 
     //}
+  
+    public void startGame()
+    {
+        game.SetActive(true);
+        SetState(GameState.Playing);
+    }
+
     public void simonsays()
     {
         simonSay.SetActive(true);
@@ -207,6 +219,9 @@ public class GameManager : MonoBehaviour
         SetState(GameState.Playing);
         mirror1.SetActive(false);
         mirror2.SetActive(false);
+        flag++;
+        TriggerManager.instance.ssd(flag);
+        
     }
     public void mirrorpuzzlecompleted()
     {
@@ -214,5 +229,7 @@ public class GameManager : MonoBehaviour
         mirror1.SetActive(false);
         mirror2.SetActive(false);
         spawned = false;
+        //flag++;
+        //TriggerManager.instance.ssd(flag);
     }
 }

@@ -1,9 +1,10 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TrigerSettings : MonoBehaviour
 {
-   
-    public string[] dialogBox = new string[] {};
+
+    public string[] dialogBox = new string[] { };
     public string triggerId;
     public bool dialog;
     public bool keyDilePuzzle;
@@ -11,4 +12,12 @@ public class TrigerSettings : MonoBehaviour
     public bool collerConect;
     public bool simonSays;
     public bool itemPuckUp;
+    //public bool flagNeeded;
+    //public int flag;
+   // public int currentflag;
+    
+    
+
+
+    
 }
