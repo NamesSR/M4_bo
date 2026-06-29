@@ -965,7 +965,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &237661553
 Transform:
   m_ObjectHideFlags: 0
@@ -2554,7 +2554,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrigerSettings
   dialogBox:
-  - keyDile
+  - 'You: knok knok'
+  - 'You: Lamp you home'
+  - silence
+  - Looks like no one is home
+  - 'you: lets try picking the lock'
   triggerId: lockPicking
   dialog: 0
   keyDilePuzzle: 1
@@ -4216,11 +4220,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrigerSettings
   dialogBox:
-  - 'lamp: Hey yesterday was crazy  '
-  - 'you: me and sneak are gathering everyone to talk'
-  - 'lamp: where are we going to meat '
-  - 'you: at at the right of the town  '
-  - 'lamp: oke see you there '
+  - 'lamp: Hey yesterDay was crazy is every one oke?'
+  - 'you: me and sneak are chekking if every one is safe '
+  - 'you: when we have checked if every one is safe'
   triggerId: checkon
   dialog: 1
   keyDilePuzzle: 0
@@ -6006,8 +6008,9 @@ MonoBehaviour:
   - 'sneak: Hey there name do you .... Remember what happend yesterday'
   - 'you: shhhh Do not talk to loud if the adults here us  they will think we are
     crazy '
-  - 'you: we shuld talk with every one'
-  - 'sneak: you go to lamp i will go to Vision '
+  - 'you: yes i remember did every one come home safe'
+  - 'sneak:  i dont know you are the first one i went to check if they where safe'
+  - 'sneak:  lets check if every one is safe you check on lamp'
   - 'sneak:  after that go to the far right of the town that is the meating spot'
   triggerId: first
   dialog: 1
