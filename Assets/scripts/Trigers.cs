@@ -12,6 +12,8 @@ public class TrigerSettings : MonoBehaviour
     public bool collerConect;
     public bool simonSays;
     public bool itemPuckUp;
+    public bool warp;
+    public Vector3 warppos;
     //public bool flagNeeded;
     //public int flag;
    // public int currentflag;

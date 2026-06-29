@@ -13,9 +13,9 @@ public class player : MonoBehaviour
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
     public float jumpFores = 2f;
-     text text;
+    text text;
     public bool haskey = false;
-    
+
     public bool indialog = false;
     [SerializeField] Vector3 velocity;
     Vector3 dir;
@@ -24,23 +24,33 @@ public class player : MonoBehaviour
     float x;
     float z;
     bool isGrounded;
-    
+    bool specialTrigger = true;
+
     private void Awake()
     {
         text.dialogEnd += textend;
         rspeed = speed;
-        
+
     }
     void Update()
     {
+        // warp tester
+        //if (Input.GetKeyDown(KeyCode.K))
+        //{
 
-        
+        //   controller.transform.position = new Vector3(-11.8f + 12, 1.68568f, 24.8f - 18);
+        //    Physics.SyncTransforms();
+
+
+
+
+        //}
 
 
     }
     private void FixedUpdate()
     {
-        
+
         //isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         if (controller.isGrounded && velocity.y < 0)
         {
@@ -83,7 +93,7 @@ public class player : MonoBehaviour
     }
     void textend()
     {
-        
+
         s = null;
         rspeed = speed;
         text = null;
@@ -102,7 +112,7 @@ public class player : MonoBehaviour
         }
         if (col.tag == "dialog")
         {
-            if (Input.GetKey(KeyCode.E) || Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Mouse1))
+            if (GameManager.Instance.flag == 12)
             {
                 if (s == null)
                 {
@@ -111,45 +121,84 @@ public class player : MonoBehaviour
 
                 if (s.dialog)
                 {
-                    if(text == null)
+                    if (specialTrigger)
                     {
-                        text = col.GetComponent<text>();
+
+                        if (text == null)
+                        {
+                            text = col.GetComponent<text>();
+                        }
+                        rspeed = 0;
+                        text.pushText(s.dialogBox);
+                        specialTrigger = false;
+
                     }
-                    rspeed = 0;
-                    text.pushText(s.dialogBox);
+                    else
+                    {
+                        if (Input.GetKey(KeyCode.E) || Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Mouse1))
+                        {
+                            text.pushText(s.dialogBox);
+                        }
+                    }
+                }
+            }
+            else
+            {
+
+                if (Input.GetKey(KeyCode.E) || Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Mouse1))
+                {
+                    if (s == null)
+                    {
+                        s = col.GetComponent<TrigerSettings>();
+                    }
+
+                    if (s.dialog)
+                    {
+                        if (text == null)
+                        {
+                            text = col.GetComponent<text>();
+                        }
+                        rspeed = 0;
+                        text.pushText(s.dialogBox);
+
+                    }
+                    else if (s.simonSays)
+                    {
+                        GameManager.Instance.simonsays();
+                        s = null;
+                    }
+                    else if (s.mirrorPuzzle)
+                    {
+                        GameManager.Instance.MirrorPuzzle();
+                        s = null;
+                    }
+                    else if (s.collerConect)
+                    {
+                        GameManager.Instance.collerConectPuzzleFn();
+                        s = null;
+                    }
+                    else if (s.keyDilePuzzle)
+                    {
+                        GameManager.Instance.KeyDilePuzzle();
+                        s = null;
+                    }
+                    else if (s.itemPuckUp)
+                    {
+                        GameManager.Instance.item1 = true;
+                        if (text == null)
+                        {
+                            text = col.GetComponent<text>();
+                        }
+                        rspeed = 0;
+                        text.pushText(s.dialogBox);
+                    }
+                    else if (s.warp)
+                    {
+                        warp(s.warppos);
+
+                    }
 
                 }
-                else if (s.simonSays)
-                {
-                    GameManager.Instance.simonsays();
-                    s = null;
-                }
-                else if (s.mirrorPuzzle)
-                {
-                    GameManager.Instance.MirrorPuzzle();
-                    s = null;
-                }
-                else if (s.collerConect)
-                {
-                    GameManager.Instance.collerConectPuzzleFn();
-                    s = null;
-                }
-                else if (s.keyDilePuzzle)
-                {
-                    GameManager.Instance.KeyDilePuzzle();
-                    s = null;
-                }
-                else if(s.itemPuckUp)
-                {
-                    GameManager.Instance.item1 = true;
-                    if (text == null)
-                    {
-                        text = col.GetComponent<text>();
-                    }
-                    rspeed = 0;
-                    text.pushText(s.dialogBox);
-                }
-
             }
         }
 
@@ -157,21 +206,12 @@ public class player : MonoBehaviour
 
 
     }
-    //private void OnTriggerEnter(Collider col)
-    //{
-    //    if (col.tag == "dialog")
-    //    {
 
-    //        if (s == null)
-    //        {
-    //            s = col.GetComponent<dialogTriggerSettings>();
-    //        }
-    //        if (Input.GetKey(KeyCode.E))
-    //        {
-    //            text.pushText(s.startIndex, s.maxIndex);
-    //        }
-    //    }
-    //}
+    public void warp(Vector3 newPos)
+    {
+        transform.position = newPos;
+        Physics.SyncTransforms();
+    }
 
 
 
