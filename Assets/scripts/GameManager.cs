@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem.LowLevel;
-using static UnityEditor.PlayerSettings;
+
+
 
 public enum GameState
 {
@@ -35,16 +36,25 @@ public class GameManager : MonoBehaviour
     public bool checkon = false;
     public bool meatingSpot12;
     public bool item1 = false;
-    
+    public bool burnenemy = false;
+    public bool hasTorch = false;
     public GameObject checkongo;
     public GameObject meatingSpot;
-   
+    public GameObject torch;
     public GameObject game;
     public int flag = 1;
 
     Vector3 pos;
     bool spawned = false;
+    public float exposure = 1.5f;
+    float night = 0.015f;
+    float day = 1.5f;
+    public int hp = 3;
 
+    
+    
+       
+    
     public List<GameObject> wobbs = new List<GameObject>();
     private void Awake()
     {
@@ -54,7 +64,11 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        game.SetActive(false);
         SetState(GameState.Playing);
+        exposure = day;
+        RenderSettings.skybox.SetFloat("_Exposure", exposure);
+        DynamicGI.UpdateEnvironment();
     }
     public void SetState(GameState newState)
     {
@@ -104,6 +118,21 @@ public class GameManager : MonoBehaviour
     }
     void Update()
     {
+
+        if(burnenemy && hasTorch)
+        {
+           
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                torch.SetActive(false);
+                enemyend();
+                flag++;
+                TriggerManager.instance.ssd(flag);
+                hasTorch = false;
+            }
+        }
+       
+
         if (debugMode)
         {
             if (Input.GetKeyDown(KeyCode.J))
@@ -231,5 +260,25 @@ public class GameManager : MonoBehaviour
         spawned = false;
         //flag++;
         //TriggerManager.instance.ssd(flag);
+    }
+    public void enemyshow12()
+    {
+        enemytest.SetActive(true);
+    }
+    public void enemyend()
+    {
+        enemytest.SetActive(false);
+    }
+    public void setday()
+    {
+        exposure = day;
+        RenderSettings.skybox.SetFloat("_Exposure", exposure);
+        DynamicGI.UpdateEnvironment(); // Updates ambient lighting
+    }
+    public void setnight()
+    {
+        exposure = night;
+        RenderSettings.skybox.SetFloat("_Exposure", exposure);
+        DynamicGI.UpdateEnvironment(); // Updates ambient lighting
     }
 }

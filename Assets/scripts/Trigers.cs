@@ -13,6 +13,8 @@ public class TrigerSettings : MonoBehaviour
     public bool simonSays;
     public bool itemPuckUp;
     public bool warp;
+    public bool enemy;
+    public bool enemyend;
     public Vector3 warppos;
     //public bool flagNeeded;
     //public int flag;

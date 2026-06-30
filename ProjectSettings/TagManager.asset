@@ -15,6 +15,7 @@ TagManager:
   - Burnable
   - orb
   - floor
+  - enemy
   layers:
   - Default
   - TransparentFX
