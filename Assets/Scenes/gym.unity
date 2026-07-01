@@ -370,6 +370,11 @@ MonoBehaviour:
   mirrorPuzzle: 0
   collerConect: 0
   simonSays: 1
+  itemPuckUp: 0
+  warp: 0
+  enemy: 0
+  enemyend: 0
+  warppos: {x: 0, y: 0, z: 0}
 --- !u!65 &79946582
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -472,7 +477,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 9452ae1262a74094f8a68013fbcd1834, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -742,6 +747,11 @@ MonoBehaviour:
   mirrorPuzzle: 0
   collerConect: 0
   simonSays: 0
+  itemPuckUp: 0
+  warp: 0
+  enemy: 0
+  enemyend: 0
+  warppos: {x: 0, y: 0, z: 0}
 --- !u!65 &519095421
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -874,6 +884,11 @@ MonoBehaviour:
   mirrorPuzzle: 0
   collerConect: 1
   simonSays: 0
+  itemPuckUp: 0
+  warp: 0
+  enemy: 0
+  enemyend: 0
+  warppos: {x: 0, y: 0, z: 0}
 --- !u!65 &543515369
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1239,6 +1254,11 @@ MonoBehaviour:
   mirrorPuzzle: 1
   collerConect: 0
   simonSays: 0
+  itemPuckUp: 0
+  warp: 0
+  enemy: 0
+  enemyend: 0
+  warppos: {x: 0, y: 0, z: 0}
 --- !u!65 &1131468020
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1304,6 +1324,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 198d5590e73fa204eb05d01077722224, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  df: {fileID: 0}
+  tasklist: {fileID: 0}
   enemytest: {fileID: 307369490035534284}
   combo: 0
   simonSay: {fileID: 6725570627945961909}
@@ -1322,8 +1344,17 @@ MonoBehaviour:
   first: 0
   checkon: 0
   meatingSpot12: 0
+  item1: 0
+  burnenemy: 0
+  hasTorch: 0
   checkongo: {fileID: 0}
   meatingSpot: {fileID: 0}
+  torch: {fileID: 0}
+  game: {fileID: 0}
+  flag: 1
+  exposure: 1.5
+  hp: 3
+  hpGo: {fileID: 0}
   wobbs: []
 --- !u!4 &1368953280
 Transform:
@@ -1532,6 +1563,11 @@ MonoBehaviour:
   mirrorPuzzle: 0
   collerConect: 0
   simonSays: 0
+  itemPuckUp: 0
+  warp: 0
+  enemy: 0
+  enemyend: 0
+  warppos: {x: 0, y: 0, z: 0}
 --- !u!23 &1405120095
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1815,7 +1851,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 9452ae1262a74094f8a68013fbcd1834, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2277,7 +2313,10 @@ MonoBehaviour:
   haskey: 0
   indialog: 0
   velocity: {x: 0, y: 0, z: 0}
-  flags: []
+  torch: {fileID: 0}
+  invisneble: 0
+  hpUI: []
+  hpui2: {fileID: 0}
 --- !u!143 &1593576862597957034
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2690,7 +2729,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 9452ae1262a74094f8a68013fbcd1834, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3545,7 +3584,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 9452ae1262a74094f8a68013fbcd1834, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

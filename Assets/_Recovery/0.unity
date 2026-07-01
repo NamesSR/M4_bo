@@ -339,7 +339,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 9452ae1262a74094f8a68013fbcd1834, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -527,7 +527,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 9452ae1262a74094f8a68013fbcd1834, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -769,10 +769,13 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   jumpFores: 2
-  text: {fileID: 1623516930}
   haskey: 0
   indialog: 0
   velocity: {x: 0, y: 0, z: 0}
+  torch: {fileID: 0}
+  invisneble: 0
+  hpUI: []
+  hpui2: {fileID: 0}
 --- !u!143 &373051182
 CharacterController:
   m_ObjectHideFlags: 0
@@ -926,9 +929,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::simonsaybutton
   id: 2
-  button1: {fileID: 1837718952}
-  button2: {fileID: 376999921}
-  button3: {fileID: 1691231740}
+  simonsaysGo: {fileID: 0}
 --- !u!114 &376999924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1291,6 +1292,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BounsLight
   maxLength: 20
+  reflections: 1
 --- !u!4 &436909727
 Transform:
   m_ObjectHideFlags: 0
@@ -1338,6 +1340,9 @@ MonoBehaviour:
   sc1: {fileID: 1058431560}
   sc2: {fileID: 1716811579}
   sc3: {fileID: 1244184163}
+  kd1: {fileID: 0}
+  kd2: {fileID: 0}
+  kd3: {fileID: 0}
   currentdilel: 1
   dile1: 0
   dile2: 0
@@ -1554,7 +1559,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 9452ae1262a74094f8a68013fbcd1834, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1739,12 +1744,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31609e9005ddd37418f944635927195e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OnEvenclick2
-  input: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  Action: puzzle
   enterGameObject: 0
-  dir: {x: 0, y: 0, z: 0}
-  speed: 1
-  speed2: 0.3
 --- !u!4 &1058431558
 Transform:
   m_ObjectHideFlags: 0
@@ -1892,12 +1892,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31609e9005ddd37418f944635927195e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OnEvenclick2
-  input: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  Action: puzzle
   enterGameObject: 0
-  dir: {x: 0, y: 0, z: 0}
-  speed: 1
-  speed2: 0.3
 --- !u!212 &1244184165
 SpriteRenderer:
   serializedVersion: 2
@@ -2001,14 +1996,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 198d5590e73fa204eb05d01077722224, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  df: {fileID: 0}
+  tasklist: {fileID: 0}
   enemytest: {fileID: 2055908938}
   combo: 0
-  button1: {fileID: 1837718952}
-  button2: {fileID: 376999921}
-  button3: {fileID: 1691231740}
+  simonSay: {fileID: 0}
+  mirror1: {fileID: 0}
+  mirror2: {fileID: 0}
   currentState: 1
   book: {fileID: 249352776}
   keypuzzel: {fileID: 474517490}
+  mirrorPuzzle: {fileID: 0}
+  collerConectPuzzle: {fileID: 0}
+  maincamera: {fileID: 0}
+  puzzleCamera: {fileID: 0}
+  orbdestoryed: 0
+  burnebleprefab: {fileID: 0}
+  debugMode: 0
+  first: 0
+  checkon: 0
+  meatingSpot12: 0
+  item1: 0
+  burnenemy: 0
+  hasTorch: 0
+  checkongo: {fileID: 0}
+  meatingSpot: {fileID: 0}
+  torch: {fileID: 0}
+  game: {fileID: 0}
+  flag: 1
+  exposure: 1.5
+  hp: 3
+  hpGo: {fileID: 0}
+  wobbs: []
 --- !u!4 &1368953280
 Transform:
   m_ObjectHideFlags: 0
@@ -2203,9 +2222,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8137ce99e06131741bbd630ce87626a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::dialogTriggerSettings
-  startIndex: 2
-  maxIndex: 4
+  dialogBox: []
+  triggerId: 
   dialog: 0
+  keyDilePuzzle: 0
+  mirrorPuzzle: 0
+  collerConect: 0
+  simonSays: 0
+  itemPuckUp: 0
+  warp: 0
+  enemy: 0
+  enemyend: 0
+  warppos: {x: 0, y: 0, z: 0}
 --- !u!1 &1444854950
 GameObject:
   m_ObjectHideFlags: 0
@@ -2383,7 +2411,6 @@ MonoBehaviour:
   textfield: {fileID: 69555779}
   textIndex: 0
   sd: 1
-  textTriger: {fileID: 1405120091}
 --- !u!4 &1623516931
 Transform:
   m_ObjectHideFlags: 0
@@ -2432,9 +2459,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::simonsaybutton
   id: 3
-  button1: {fileID: 1837718952}
-  button2: {fileID: 376999921}
-  button3: {fileID: 1691231740}
+  simonsaysGo: {fileID: 0}
 --- !u!114 &1691231742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2613,7 +2638,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 9452ae1262a74094f8a68013fbcd1834, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2712,12 +2737,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31609e9005ddd37418f944635927195e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OnEvenclick2
-  input: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  Action: puzzle
   enterGameObject: 0
-  dir: {x: 0, y: 0, z: 0}
-  speed: 1
-  speed2: 0.3
 --- !u!212 &1716811581
 SpriteRenderer:
   serializedVersion: 2
@@ -2825,9 +2845,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::simonsaybutton
   id: 1
-  button1: {fileID: 1837718952}
-  button2: {fileID: 376999921}
-  button3: {fileID: 1691231740}
+  simonsaysGo: {fileID: 0}
 --- !u!114 &1837718954
 MonoBehaviour:
   m_ObjectHideFlags: 0
