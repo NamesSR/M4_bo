@@ -57,11 +57,13 @@ public class player : MonoBehaviour
         {
             warp(TriggerManager.instance.respawntarget(GameManager.Instance.flag));
             GameManager.Instance.flag--;
+            GameManager.Instance.flag--;
             GameManager.Instance.enemyend();
             torch.SetActive(false);
             StopCoroutine(enemy23());
             GameManager.Instance.hp = 3;
             hpui2.texture = hpUI[GameManager.Instance.hp - 1];
+            TriggerManager.instance.ssd(GameManager.Instance.flag);
 
         }
 
