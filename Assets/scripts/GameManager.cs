@@ -122,7 +122,7 @@ public class GameManager : MonoBehaviour
                 puzzleCamera.SetActive(true);
                 book.SetActive(false);
                 hpGo.SetActive(false);
-                tasklist.SetActive(true);
+                tasklist.SetActive(false);
                 break;
             case GameState.cutscene:
                 df.cutcenea();
@@ -149,7 +149,21 @@ public class GameManager : MonoBehaviour
                 hasTorch = false;
             }
         }
-       
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            if (currentState == GameState.Playing)
+            {
+                currentState = GameState.book;
+                SetState(GameState.book);
+            }
+            else if (currentState == GameState.book)
+            {
+                currentState = GameState.Playing;
+                SetState(GameState.Playing);
+            }
+
+        }
 
         if (debugMode)
         {
@@ -161,20 +175,7 @@ public class GameManager : MonoBehaviour
             {
                 simonsays();
             }
-            if (Input.GetKeyDown(KeyCode.I))
-            {
-                if (currentState == GameState.Playing)
-                {
-                    currentState = GameState.book;
-                    SetState(GameState.book);
-                }
-                else if (currentState == GameState.book)
-                {
-                    currentState = GameState.Playing;
-                    SetState(GameState.Playing);
-                }
-
-            }
+           
             if (Input.GetKeyDown(KeyCode.Alpha0))
             {
 
