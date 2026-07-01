@@ -57,7 +57,7 @@ public class player : MonoBehaviour
         {
             warp(TriggerManager.instance.respawntarget(GameManager.Instance.flag));
             GameManager.Instance.flag--;
-            GameManager.Instance.flag--;
+            
             GameManager.Instance.enemyend();
             torch.SetActive(false);
             StopCoroutine(enemy23());
