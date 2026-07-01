@@ -11,11 +11,14 @@ public enum GameState
     puzzle,
     Paused,
     GameOver,
-    book
+    book,
+    cutscene
 }
 
 public class GameManager : MonoBehaviour
 {
+    public cutscenens df;
+    public GameObject tasklist;
     public GameObject enemytest;
     public static GameManager Instance;
     public int combo = 0;
@@ -50,7 +53,7 @@ public class GameManager : MonoBehaviour
     float night = 0.015f;
     float day = 1.5f;
     public int hp = 3;
-
+    public GameObject hpGo;
     
     
        
@@ -65,7 +68,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         game.SetActive(false);
-        SetState(GameState.Playing);
+        SetState(GameState.Menu);
         exposure = day;
         RenderSettings.skybox.SetFloat("_Exposure", exposure);
         DynamicGI.UpdateEnvironment();
@@ -81,29 +84,36 @@ public class GameManager : MonoBehaviour
                 maincamera.SetActive(true);
                 puzzleCamera.SetActive(false);
                 book.SetActive(false);
+                hpGo.SetActive(false);
+                tasklist.SetActive(false);
                 break;
             case GameState.Playing:
                 Time.timeScale = 1;
                 maincamera.SetActive(true);
                 puzzleCamera.SetActive(false);
                 book.SetActive(false);
+                hpGo.SetActive(true);
+                tasklist.SetActive(true);
                 break;
             case GameState.Paused:
                 Time.timeScale = 0;
                 maincamera.SetActive(true);
                 puzzleCamera.SetActive(false);
                 book.SetActive(false);
+                tasklist.SetActive(true);
                 break;
             case GameState.GameOver:
                 Time.timeScale = 0;
                 maincamera.SetActive(true);
                 puzzleCamera.SetActive(false);
                 book.SetActive(false);
+                tasklist.SetActive(false);
                 break;
             case GameState.book:
                 maincamera.SetActive(true);
                 puzzleCamera.SetActive(false);
                 book.SetActive(true);
+                tasklist.SetActive(false);
                 Time.timeScale = 0;
                 break;
             case GameState.puzzle:
@@ -111,7 +121,15 @@ public class GameManager : MonoBehaviour
                 maincamera.SetActive(false);
                 puzzleCamera.SetActive(true);
                 book.SetActive(false);
+                hpGo.SetActive(false);
+                tasklist.SetActive(true);
                 break;
+            case GameState.cutscene:
+                df.cutcenea();
+                hpGo.SetActive(false);
+                tasklist.SetActive(false);
+                break;
+
         }
 
 
@@ -205,6 +223,10 @@ public class GameManager : MonoBehaviour
         simonSay.SetActive(true);
         combo = 0;
 
+    }
+    public void startCutscen()
+    {
+        SetState(GameState.cutscene);
     }
     public void KeyDilePuzzle()
     {

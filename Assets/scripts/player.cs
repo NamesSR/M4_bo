@@ -2,6 +2,7 @@ using NUnit.Framework;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class player : MonoBehaviour
 {
@@ -28,11 +29,14 @@ public class player : MonoBehaviour
     bool specialTrigger = true;
     public GameObject torch;
     public bool invisneble = false;
+    [SerializeField] Texture[] hpUI = new Texture[] { };
+    [SerializeField] RawImage hpui2;
 
     private void Awake()
     {
         text.dialogEnd += textend;
         rspeed = speed;
+        hpui2.texture = hpUI[GameManager.Instance.hp - 1];
 
     }
     void Update()
@@ -49,7 +53,7 @@ public class player : MonoBehaviour
 
 
         //}
-        if (GameManager.Instance.hp < 1)
+        if (GameManager.Instance.hp <= 0)
         {
             warp(TriggerManager.instance.respawntarget(GameManager.Instance.flag));
             GameManager.Instance.flag--;
@@ -57,6 +61,7 @@ public class player : MonoBehaviour
             torch.SetActive(false);
             StopCoroutine(enemy23());
             GameManager.Instance.hp = 3;
+            hpui2.texture = hpUI[GameManager.Instance.hp - 1];
 
         }
 
@@ -116,18 +121,8 @@ public class player : MonoBehaviour
 
 
     }
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "enemy")
-        {
-            if (invisneble == false)
-            {
-                GameManager.Instance.hp--;
-                StartCoroutine(ivisebles());
-                ;
-            }
-        }
-    }
+    
+
     IEnumerator ivisebles()
     {
         invisneble = true;
@@ -136,6 +131,22 @@ public class player : MonoBehaviour
     }
     private void OnTriggerStay(Collider col)
     {
+        if (col.gameObject.tag == "enemy")
+        {
+            Debug.Log("colision");
+            if (invisneble == false)
+            {
+                GameManager.Instance.hp--;
+                StartCoroutine(ivisebles());
+                if (GameManager.Instance.hp > 0)
+                {
+                    hpui2.texture = hpUI[GameManager.Instance.hp - 1];
+
+                }
+                
+
+            }
+        }
         if (col.tag == "key")
         {
             haskey = true;
@@ -173,7 +184,7 @@ public class player : MonoBehaviour
                         }
                     }
                 }
-                else if (s.enemy)  
+                else if (s.enemy)
                 {
                     if (specialTrigger)
                     {
