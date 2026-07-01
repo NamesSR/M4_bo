@@ -31,7 +31,7 @@ public class player : MonoBehaviour
     public bool invisneble = false;
     [SerializeField] Texture[] hpUI = new Texture[] { };
     [SerializeField] RawImage hpui2;
-
+    public SpriteRenderer sr;
     private void Awake()
     {
         text.dialogEnd += textend;
@@ -90,7 +90,14 @@ public class player : MonoBehaviour
 
         x = Input.GetAxis("Horizontal");
         z = Input.GetAxis("Vertical");
-
+        if(x > 0)
+        {
+            sr.flipX = true;
+        }
+        else if(x < 0)
+        {
+            sr.flipX = false;
+        }
 
 
         Vector3 move = new Vector3(x, 0f, z);//.normalized;

@@ -17,6 +17,7 @@ public enum GameState
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject sadf;
     public cutscenens df;
     public GameObject tasklist;
     public GameObject enemytest;
@@ -81,6 +82,7 @@ public class GameManager : MonoBehaviour
         {
             case GameState.Menu:
                 Time.timeScale = 1;
+                sadf.SetActive(true);
                 maincamera.SetActive(true);
                 puzzleCamera.SetActive(false);
                 book.SetActive(false);
@@ -89,6 +91,7 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.Playing:
                 Time.timeScale = 1;
+                sadf.SetActive(false);
                 maincamera.SetActive(true);
                 puzzleCamera.SetActive(false);
                 book.SetActive(false);
@@ -101,6 +104,7 @@ public class GameManager : MonoBehaviour
                 puzzleCamera.SetActive(false);
                 book.SetActive(false);
                 tasklist.SetActive(true);
+                sadf.SetActive(false);
                 break;
             case GameState.GameOver:
                 Time.timeScale = 0;
@@ -108,12 +112,14 @@ public class GameManager : MonoBehaviour
                 puzzleCamera.SetActive(false);
                 book.SetActive(false);
                 tasklist.SetActive(false);
+                sadf.SetActive(false);
                 break;
             case GameState.book:
                 maincamera.SetActive(true);
                 puzzleCamera.SetActive(false);
                 book.SetActive(true);
                 tasklist.SetActive(false);
+                sadf.SetActive(false);
                 Time.timeScale = 0;
                 break;
             case GameState.puzzle:
@@ -123,11 +129,13 @@ public class GameManager : MonoBehaviour
                 book.SetActive(false);
                 hpGo.SetActive(false);
                 tasklist.SetActive(false);
+                sadf.SetActive(false);
                 break;
             case GameState.cutscene:
                 df.cutcenea();
                 hpGo.SetActive(false);
                 tasklist.SetActive(false);
+                sadf.SetActive(true);
                 break;
 
         }
