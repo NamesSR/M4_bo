@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem.LowLevel;
@@ -47,7 +48,7 @@ public class GameManager : MonoBehaviour
     public GameObject torch;
     public GameObject game;
     public int flag = 1;
-
+    public bool enemyspawn = false;
     Vector3 pos;
     bool spawned = false;
     public float exposure = 1.5f;
@@ -55,10 +56,13 @@ public class GameManager : MonoBehaviour
     float day = 1.5f;
     public int hp = 3;
     public GameObject hpGo;
-    
-    
-       
-    
+    float getTorch = 10f;
+    public float nextGetTorch = 0;
+    public Transform enemyspawnPos;
+    public bool specialTrigger = true;
+
+    public static event Action showtorch;
+
     public List<GameObject> wobbs = new List<GameObject>();
     private void Awake()
     {
@@ -144,16 +148,29 @@ public class GameManager : MonoBehaviour
     }
     void Update()
     {
-
-        if(burnenemy && hasTorch)
+        if (Time.time >= nextGetTorch)
         {
-           
+            if (enemyspawn)
+            {
+                burnenemy = true;
+
+                torch.SetActive(true);
+                showtorch.Invoke();
+
+            }
+        }
+
+        if (burnenemy && hasTorch)
+        {
+
             if (Input.GetKeyDown(KeyCode.E))
             {
+                enemyspawn = false;
                 torch.SetActive(false);
                 enemyend();
                 flag++;
                 TriggerManager.instance.ssd(flag);
+                specialTrigger = true;
                 hasTorch = false;
             }
         }
@@ -183,7 +200,7 @@ public class GameManager : MonoBehaviour
             {
                 simonsays();
             }
-           
+
             if (Input.GetKeyDown(KeyCode.Alpha0))
             {
 
@@ -199,6 +216,10 @@ public class GameManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Alpha8))
             {
                 collerConectPuzzle.SetActive(true);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha7))
+            {
+                TriggerManager.instance.ssd(flag);
             }
         }
     }
@@ -220,7 +241,7 @@ public class GameManager : MonoBehaviour
     //    }
 
     //}
-  
+
     public void startGame()
     {
         game.SetActive(true);
@@ -281,7 +302,7 @@ public class GameManager : MonoBehaviour
         mirror2.SetActive(false);
         flag++;
         TriggerManager.instance.ssd(flag);
-        
+
     }
     public void mirrorpuzzlecompleted()
     {
@@ -294,7 +315,15 @@ public class GameManager : MonoBehaviour
     }
     public void enemyshow12()
     {
+        enemytest.transform.position = enemyspawnPos.position;
         enemytest.SetActive(true);
+        if (enemyspawn == false)
+        {
+            nextGetTorch = Time.time + getTorch;
+            enemyspawn = true;
+        }
+      
+
     }
     public void enemyend()
     {

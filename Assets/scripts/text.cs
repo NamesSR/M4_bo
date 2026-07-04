@@ -9,8 +9,8 @@ public class text : MonoBehaviour
     public GameObject textfield;
     public int textIndex = 0;
     public bool sd = true;
-   // public GameObject textTriger;
-   
+    // public GameObject textTriger;
+
     public static event Action dialogEnd;
     public static event Action e;
     bool er = true;
@@ -28,7 +28,7 @@ public class text : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L))
         {
             textfield.SetActive(true);
-           // _textBox.text = "";
+            // _textBox.text = "";
             _textBox.text = "the nachtkrapp is a german myth parrents tell their children that if they dont sleep at night that the nachtkrapp will come and if it see them awake it will take them to its nest and rip off their arms and eat their heart  ";
 
         }
@@ -38,7 +38,7 @@ public class text : MonoBehaviour
     {
         if (sd)
         {
-           textIndex = 0;
+            textIndex = 0;
             textfield.SetActive(true);
             //_textBox.text = " ";
             sd = false;
@@ -46,13 +46,18 @@ public class text : MonoBehaviour
         }
         if (textIndex <= dialog.Length - 1)
         {
-            if (er)
+            if (Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.Mouse1))
             {
-             e.Invoke();
-                er = false;
+                if (er)
+                {
+                    e.Invoke();
+                    er = false;
+                }
+                // _textBox.text = " ";
+                _textBox.text = dialog[textIndex];
+
+
             }
-           // _textBox.text = " ";
-            _textBox.text = dialog[textIndex];
 
         }
         else

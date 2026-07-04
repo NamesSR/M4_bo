@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System.Collections;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,18 +26,24 @@ public class player : MonoBehaviour
     TrigerSettings s;
     float x;
     float z;
-    bool isGrounded;
-    bool specialTrigger = true;
+    
     public GameObject torch;
     public bool invisneble = false;
     [SerializeField] Texture[] hpUI = new Texture[] { };
     [SerializeField] RawImage hpui2;
     public SpriteRenderer sr;
+    float iframs = 1;
+    float nextIframs = 0;
+    
+  
+    public TMP_Text taskList;
+
     private void Awake()
     {
         text.dialogEnd += textend;
         rspeed = speed;
         hpui2.texture = hpUI[GameManager.Instance.hp - 1];
+        GameManager.showtorch += updateTask;
 
     }
     void Update()
@@ -48,24 +55,27 @@ public class player : MonoBehaviour
         //    warp(TriggerManager.instance.respawntarget(14));
         //    //controller.transform.position = new Vector3(-11.8f + 12, 1.68568f, 24.8f - 18);
         //    //Physics.SyncTransforms();
-
-
-
-
         //}
+
+
+
         if (GameManager.Instance.hp <= 0)
         {
             warp(TriggerManager.instance.respawntarget(GameManager.Instance.flag));
             GameManager.Instance.flag--;
-            
             GameManager.Instance.enemyend();
             torch.SetActive(false);
-            StopCoroutine(enemy23());
+            // StopCoroutine(enemy23());
+            GameManager.Instance.enemyspawn = false;
+            GameManager.Instance.nextGetTorch = 0;
             GameManager.Instance.hp = 3;
             hpui2.texture = hpUI[GameManager.Instance.hp - 1];
             TriggerManager.instance.ssd(GameManager.Instance.flag);
+            GameManager.Instance.specialTrigger = true;
+            taskList.text = "go to the shrine";
 
         }
+       
 
     }
     private void FixedUpdate()
@@ -90,11 +100,11 @@ public class player : MonoBehaviour
 
         x = Input.GetAxis("Horizontal");
         z = Input.GetAxis("Vertical");
-        if(x > 0)
+        if (x > 0)
         {
             sr.flipX = true;
         }
-        else if(x < 0)
+        else if (x < 0)
         {
             sr.flipX = false;
         }
@@ -120,40 +130,34 @@ public class player : MonoBehaviour
     }
     void textend()
     {
-
+        taskList.text = s.task;
         s = null;
         rspeed = speed;
         text = null;
         GameManager.Instance.flag++;
         TriggerManager.instance.ssd(GameManager.Instance.flag);
-        specialTrigger = true;
+        GameManager.Instance.specialTrigger = true;
 
 
     }
-    
 
-    IEnumerator ivisebles()
-    {
-        invisneble = true;
-        yield return new WaitForSeconds(0.2f);
-        invisneble = false;
-    }
+
+   
     private void OnTriggerStay(Collider col)
     {
         if (col.gameObject.tag == "enemy")
         {
             Debug.Log("colision");
-            if (invisneble == false)
+
+            if (Time.time >= nextIframs)
             {
                 GameManager.Instance.hp--;
-                StartCoroutine(ivisebles());
                 if (GameManager.Instance.hp > 0)
                 {
                     hpui2.texture = hpUI[GameManager.Instance.hp - 1];
 
                 }
-                
-
+                nextIframs = Time.time + 1f / iframs;
             }
         }
         if (col.tag == "key")
@@ -173,7 +177,7 @@ public class player : MonoBehaviour
 
                 if (s.dialog)
                 {
-                    if (specialTrigger)
+                    if (GameManager.Instance.specialTrigger)
                     {
 
                         if (text == null)
@@ -182,7 +186,7 @@ public class player : MonoBehaviour
                         }
                         rspeed = 0;
                         text.pushText(s.dialogBox);
-                        specialTrigger = false;
+                        GameManager.Instance.specialTrigger = false;
 
                     }
                     else
@@ -195,25 +199,27 @@ public class player : MonoBehaviour
                 }
                 else if (s.enemy)
                 {
-                    if (specialTrigger)
+                    if (GameManager.Instance.specialTrigger)
                     {
                         GameManager.Instance.enemyshow12();
-                        StartCoroutine(enemy23());
+                      
+                        taskList.text = s.task;
                         s = null;
                     }
-                    specialTrigger = false;
+                    GameManager.Instance.specialTrigger = false;
                 }
             }
             else
             {
 
+                
+                    
                 if (Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.Mouse1))
                 {
                     if (s == null)
                     {
                         s = col.GetComponent<TrigerSettings>();
                     }
-
                     if (s.dialog)
                     {
                         if (GameManager.Instance.flag == 16)
@@ -226,30 +232,37 @@ public class player : MonoBehaviour
                         }
                         if (text == null)
                         {
-                            text = col.GetComponent<text>();
+                            text = s.gameObject.GetComponent<text>();
                         }
                         rspeed = 0;
+                        velocity.x = 0;
+                        velocity.z = 0;
                         text.pushText(s.dialogBox);
+                        
 
                     }
                     else if (s.simonSays)
                     {
                         GameManager.Instance.simonsays();
+                        taskList.text = s.task;
                         s = null;
                     }
                     else if (s.mirrorPuzzle)
                     {
                         GameManager.Instance.MirrorPuzzle();
+                        taskList.text = s.task;
                         s = null;
                     }
                     else if (s.collerConect)
                     {
                         GameManager.Instance.collerConectPuzzleFn();
+                        taskList.text = s.task;
                         s = null;
                     }
                     else if (s.keyDilePuzzle)
                     {
                         GameManager.Instance.KeyDilePuzzle();
+                        taskList.text = s.task;
                         s = null;
                     }
                     else if (s.itemPuckUp)
@@ -262,9 +275,11 @@ public class player : MonoBehaviour
                         GameManager.Instance.item1 = true;
                         if (text == null)
                         {
-                            text = col.GetComponent<text>();
+                            text = s.gameObject.GetComponent<text>();
                         }
                         rspeed = 0;
+                        velocity.x = 0;
+                        velocity.y = 0;
                         text.pushText(s.dialogBox);
                     }
                     else if (s.warp)
@@ -272,21 +287,22 @@ public class player : MonoBehaviour
 
                         GameManager.Instance.flag++;
                         TriggerManager.instance.ssd(GameManager.Instance.flag);
+                        taskList.text = s.task;
                         s = null;
                     }
                     else if (s.enemy)
                     {
 
                         GameManager.Instance.enemyshow12();
-                        StartCoroutine(enemy23());
+                        taskList.text = s.task;
                         s = null;
                     }
-                    //else if (s.enemyend)
-                    //{
-                    //    GameManager.Instance.enemyend();
-                    //}
-
                 }
+
+
+
+
+
             }
         }
 
@@ -294,18 +310,27 @@ public class player : MonoBehaviour
 
 
     }
-    IEnumerator enemy23()
+
+   void updateTask()
     {
-        yield return new WaitForSeconds(30f);
-        GameManager.Instance.burnenemy = true;
-        torch.SetActive(true);
+        if(GameManager.Instance.burnenemy && GameManager.Instance.hasTorch)
+        {
+            taskList.text = "press e to throw the torch to the nachtkrapp";
+        }
+        if(GameManager.Instance.hasTorch == false)
+        {
+            taskList.text = "run home";
+        }
+        
     }
+
     public void warp(Vector3 newPos)
     {
 
         transform.position = newPos;
         Physics.SyncTransforms();
     }
+  
 
 
 

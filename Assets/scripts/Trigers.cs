@@ -5,6 +5,7 @@ public class TrigerSettings : MonoBehaviour
 {
 
     public string[] dialogBox = new string[] { };
+    public string task;
     public string triggerId;
     public bool dialog;
     public bool keyDilePuzzle;
